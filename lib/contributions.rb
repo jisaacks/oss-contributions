@@ -4,12 +4,19 @@ require "json"
 require "pry"
 
 class Contributions
+  def initialize(opts={})
+    @access_token = nil
+    if opts[:access_token]
+      @access_token = opts[:access_token]
+    end
+  end
+
   def conn
     @conn ||= Faraday.new 'https://api.github.com'
   end
 
   def api(path)
-    obj = JSON.parse conn.get(path).body
+    obj = JSON.parse conn.get(add_access_token path).body
     if obj.is_a?(Hash)
       h = Hashie::Mash.new obj
       if h.message && h.message =~ /API rate limit exceeded/
@@ -25,6 +32,15 @@ class Contributions
     end
   end
 
+  def add_access_token(path)
+    if @access_token
+      delim = path =~ /\?/ ? "&" : "?"
+      "#{path}#{delim}access_token=#{@access_token}"
+    else
+      path
+    end
+  end
+
   def repos(user)
     api "/users/#{user}/repos"
   end
@@ -33,9 +49,15 @@ class Contributions
     api "/repos/#{owner}/#{repo}"
   end
 
-  def is_contributor?(user,owner,repo)
-    api("/repos/#{owner}/#{repo}/contributors").any? do |contributor|
+  def is_contributor?(user,owner,repo,page=1)
+    contributors = api("/repos/#{owner}/#{repo}/contributors?page=#{page}")
+    answered = contributors.any? do |contributor|
       contributor.login == user
+    end
+    if answered || contributors.empty?
+      return answered
+    else
+      return is_contributor?(user,owner,repo,page+1)
     end
   end
 
@@ -54,6 +76,8 @@ class Contributions
           stars: r.stargazers_count,
           commits: "#{r.html_url}/commits?author=#{user}"
         })
+      else
+        puts "skippping #{r.name}"
       end
       l
     end
