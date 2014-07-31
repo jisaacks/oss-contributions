@@ -2,8 +2,8 @@ PATH
   remote: .
   specs:
     oss-contributions (0.0.0)
-      faraday (~> 0.9.0)
-      hashie (~> 3.1.0)
+      faraday (~> 0.9)
+      hashie (~> 3.1)
 
 GEM
   remote: https://rubygems.org/
