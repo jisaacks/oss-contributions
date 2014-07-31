@@ -1,7 +1,6 @@
 require "faraday"
 require "hashie"
 require "json"
-require "pry"
 
 module OSS
   class Contributions
