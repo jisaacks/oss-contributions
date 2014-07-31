@@ -1,2 +1,3 @@
 .bundle
 access_token
+*.gem
