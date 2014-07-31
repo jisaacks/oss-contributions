@@ -5,7 +5,7 @@ List popular open source contributions from any github user.
 * Looks at user's repositories
 * Checks forks for actual commits by user
 * Lists most popular sources and forks (by stars)
-* Each repo is listed by name, stars
+* Each repo is listed by name, stars, url (direct link to commits by user)
 
 ### Usage
 
