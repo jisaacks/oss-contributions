@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    oss-contributions (0.0.0)
+    oss-contributions (0.0.1)
       faraday (~> 0.9)
       hashie (~> 3.1)
 

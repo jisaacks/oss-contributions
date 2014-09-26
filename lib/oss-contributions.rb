@@ -42,7 +42,8 @@ module OSS
     end
 
     def repos(user)
-      api "/users/#{user}/repos"
+      # TODO get multiple pages
+      api "/users/#{user}/repos?per_page=100"
     end
 
     def repo(owner, repo)

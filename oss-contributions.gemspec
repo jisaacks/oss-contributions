@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = "oss-contributions"
-  s.version     = "0.0.0"
+  s.version     = "0.0.1"
   s.date        = Time.now.strftime("%Y-%m-%d")
   s.summary     = "List your most popular github contributions"
   s.description = "List your most popular github contributions, looks at your forks and checks if you have actually contributed to them."
