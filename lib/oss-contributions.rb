@@ -74,6 +74,8 @@ module OSS
         if repo_ok
           l[type] << Hashie::Mash.new({
             name: r.name,
+            owner: r.owner.login,
+            repo: "#{r.owner.login}/#{r.name}",
             stars: r.stargazers_count,
             commits: "#{r.html_url}/commits?author=#{user}"
           })
